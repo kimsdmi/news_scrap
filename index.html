@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DMI 스크랩+</title>
+<meta name="description" content="소재혁신선도본부가 매주 고른 국내 소·부·장 주요 기사를 찾고, 담고, 스크랩북으로 묶어 보세요.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <div class="wrap topbar-in">
+      <a class="brand" href="#" data-act="home">
+        <img class="brand-logo" src="img/kims_logo.png" alt="KIMS 한국재료연구원">
+        <span class="brand-div" aria-hidden="true"></span>
+        <img class="brand-logo" src="img/dmi_logo_color.png" alt="DMI 소재혁신선도본부">
+        <span class="brand-div" aria-hidden="true"></span>
+        <span class="brand-name">스크랩<b>+</b></span>
+      </a>
+      <nav class="topnav">
+        <button type="button" data-act="about">이용 안내</button>
+        <button type="button" class="book-btn" data-act="open-books">내 스크랩북 <span class="count" id="bookCount">0</span></button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="wrap hero-in">
+      <p class="hero-kicker">Materials · Components · Equipment</p>
+      <h1>매주 새로운 소·부·장 기사로 <br>나만의 스크랩북을 만들다</h1>
+      <p class="hero-sub">KIMS 소재혁신선도본부가 매주 고른 국내 소재·부품·장비 기사를 <br>찾고, 담고, 모아 보세요.</p>
+      <form class="search" id="searchForm" role="search">
+        <input id="q" type="search" placeholder="키워드 검색 (예: 이차전지, 희토류, KAIST)" autocomplete="off">
+        <button type="submit">검색</button>
+      </form>
+      <ol class="steps">
+        <li><b>01</b>키워드·분야로 기사 찾기</li>
+        <li><b>02</b>기사를 골라 폴더에 담기</li>
+        <li><b>03</b>메모·형광펜으로 스크랩</li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="picks" id="picks">
+    <div class="wrap picks-in">
+      <div class="picks-side">
+        <p class="sec-k">Weekly Pick</p>
+        <h2>지금 주목할<br>소·부·장 기사</h2>
+        <div class="pick-tabs" id="pickTabs"></div>
+      </div>
+      <div class="picks-main">
+        <div class="pick-row" id="pickRow"></div>
+        <div class="pick-foot">
+          <div class="pick-track"><i id="pickBar"></i></div>
+          <div class="pick-nav">
+            <button type="button" data-slide="-1" aria-label="이전">←</button>
+            <button type="button" data-slide="1" aria-label="다음">→</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="wrap list-head" id="listHead">
+    <div>
+      <p class="sec-k">All Articles</p>
+      <h2>기사로 읽는 소·부·장의 흐름</h2>
+      <p class="list-sub"><em>주제·묶음별로</em> 골라 보고, 필요한 기사만 폴더에 담아 두세요.</p>
+    </div>
+    <button type="button" class="ghost-btn" data-act="about">이용 안내 <span>›</span></button>
+  </div>
+
+  <main class="wrap layout">
+    <aside class="side" id="side">
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" class="on" data-tab="topic">주제별로 찾기</button>
+        <button type="button" role="tab" data-tab="bundle">묶음으로 찾기</button>
+      </div>
+      <div class="tabpane" id="pane-topic"></div>
+      <div class="tabpane" id="pane-bundle" hidden></div>
+    </aside>
+
+    <section class="results">
+      <div class="active-filters" id="activeFilters"></div>
+      <div class="toolbar">
+        <div class="total">전체 <b id="total">0</b>건 <span id="pageInfo"></span></div>
+        <div class="tools">
+          <label class="selall"><input type="checkbox" id="selAll"> 전체선택</label>
+          <button type="button" class="primary" data-act="save-selected" id="saveSel" disabled>폴더 저장</button>
+          <select id="sort" aria-label="정렬">
+            <option value="new">최신순</option>
+            <option value="old">오래된순</option>
+          </select>
+          <select id="per" aria-label="보기 개수">
+            <option value="12">12개 보기</option>
+            <option value="24" selected>24개 보기</option>
+            <option value="48">48개 보기</option>
+          </select>
+          <button type="button" class="filter-toggle" data-act="toggle-side">필터</button>
+        </div>
+      </div>
+      <div class="grid" id="grid"></div>
+      <nav class="pager" id="pager"></nav>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot-logo"><img src="img/kims_logo.png" alt="KIMS 한국재료연구원"><img src="img/dmi_logo_color.png" alt="DMI 소재혁신선도본부"></div>
+      <p><b>스크랩+</b> · 매주 고른 국내 소·부·장 기사 모음</p>
+      <p>기사 저작권은 각 언론사·기관에 있습니다. 이 사이트는 제목·원문 링크와 본부가 작성한 요약·분류만 제공합니다.</p>
+      <p class="muted" id="updated"></p>
+    </div>
+  </footer>
+</div>
+
+<div class="layer" id="layer" hidden>
+  <div class="dialog" role="dialog" aria-modal="true" id="dialog"></div>
+</div>
+<div class="bookview" id="bookView" hidden></div>
+<button type="button" class="hl-btn" id="hlBtn" hidden>형광펜</button>
+<div class="toast" id="toast" hidden></div>
+
+<script src="data/articles.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
