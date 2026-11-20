@@ -170,6 +170,8 @@ a { color: inherit; }
 .cover h2 { margin: 0; font-size: 18px; line-height: 1.42; letter-spacing: -.04em; font-weight: 700; text-shadow: 0 1px 10px rgba(0,0,0,.3); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .cover h2 button { all: unset; cursor: pointer; }
 .cover .star { position: absolute; left: 12px; top: 12px; }
+/* 사진 출처 - 사진 오른쪽 아래 작은 글씨(2026-11-19) */
+.credit { position: absolute; right: 8px; bottom: 6px; font-size: 10.5px; line-height: 1.2; font-weight: 400; color: rgba(255,255,255,.88); text-shadow: 0 1px 3px rgba(0,0,0,.7); pointer-events: none; max-width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pick { position: absolute; top: 12px; right: 12px; z-index: 2; width: 20px; height: 20px; accent-color: var(--brand); cursor: pointer; }
 .card.sel .cover { box-shadow: 0 0 0 3px var(--brand); }
 .card-body { padding-top: 14px; display: flex; flex-direction: column; flex: 1; gap: 8px; }

@@ -214,6 +214,10 @@
     var key = a.field && HUE[a.field] != null ? a.field : a.category;
     return { hue: HUE[key] != null ? HUE[key] : 220, label: a.field || (a.category === "정책" ? "정책 동향" : "산업 동향") };
   }
+  // 사진 출처(2026-11-19). 원문 사진은 보도기관, 담당자가 바꿔 넣은 사진은 엑셀 사진 칸 메모 값.
+  function credit(a) {
+    return a.image && a.photo_credit ? '<span class="credit">사진: ' + esc(a.photo_credit) + "</span>" : "";
+  }
   function coverStyle(a, c) {
     return "--h:" + c.hue + (a.image ? ";background-image:url('" + a.image + "')" : "");
   }
@@ -223,7 +227,7 @@
       '<input class="pick" type="checkbox" aria-label="기사 선택" data-pick="' + a.id + '"' + (sel ? " checked" : "") + ">" +
       '<div class="cover' + (a.image ? " has-img" : "") + '" style="' + coverStyle(a, c) + '" data-open="' + a.id + '">' +
         (a.featured ? '<span class="star">대표기사</span>' : "") +
-        '<div class="ov"><h2><button type="button" data-open="' + a.id + '">' + hl(a.title) + "</button></h2></div></div>" +
+        '<div class="ov"><h2><button type="button" data-open="' + a.id + '">' + hl(a.title) + "</button></h2></div>" + credit(a) + "</div>" +
       '<div class="card-body">' +
         '<div class="card-top"><span class="otag otag-' + esc(a.category) + '">' + esc(a.category) + "</span>" +
         '<span class="lbl">' + esc(c.label) + "</span></div>" +
@@ -254,7 +258,7 @@
       return '<button type="button" class="tile' + (a.image ? " has-img" : "") + '" style="' + coverStyle(a, c) + '" data-open="' + a.id + '">' +
         '<span class="tile-k">' + esc(a.category) + (a.field ? " · " + esc(a.field) : "") + "</span>" +
         '<span class="tile-t">' + esc(a.title) + "</span>" +
-        '<span class="tile-m">' + fmtDate(a.date) + " · " + esc(a.source) + "</span></button>";
+        '<span class="tile-m">' + fmtDate(a.date) + " · " + esc(a.source) + "</span>" + credit(a) + "</button>";
     }).join("");
     $("#pickRow").scrollLeft = 0;
     syncDots();
@@ -299,6 +303,7 @@
     if (a.subfield) dl += "<dt>세부분야</dt><dd>" + esc(a.subfield) + "</dd>";
     if (a.institutions.length) dl += "<dt>관련기관</dt><dd>" + esc(a.institutions.join(" · ")) + "</dd>";
     if (a.week) dl += "<dt>수록</dt><dd>" + esc(a.week.label) + "</dd>";
+    if (a.image && a.photo_credit) dl += "<dt>사진 출처</dt><dd>" + esc(a.photo_credit) + "</dd>";
     showDialog(
       '<button type="button" class="x" data-act="close" aria-label="닫기">×</button>' +
       '<div class="card-top"><span class="cat cat-' + esc(a.category) + '">' + esc(a.category) + "</span>" +
@@ -385,7 +390,7 @@
     return '<article class="card scrap" data-id="' + a.id + '">' +
       '<div class="cover' + (a.image ? " has-img" : "") + '" style="' + coverStyle(a, c) + '" data-open="' + a.id + '">' +
         (a.featured ? '<span class="star">대표기사</span>' : "") +
-        '<div class="ov"><h2><button type="button" data-open="' + a.id + '">' + esc(a.title) + "</button></h2></div></div>" +
+        '<div class="ov"><h2><button type="button" data-open="' + a.id + '">' + esc(a.title) + "</button></h2></div>" + credit(a) + "</div>" +
       '<div class="card-body">' +
         '<div class="card-top"><span class="otag otag-' + esc(a.category) + '">' + esc(a.category) + "</span>" +
         '<span class="lbl">' + esc(c.label) + "</span></div>" +
